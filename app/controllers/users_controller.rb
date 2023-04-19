@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :ensure_current_user, only: [:edit, :update]
   skip_before_action :login_required, only: [:new, :create]
   
   def new
@@ -29,6 +30,12 @@ class UsersController < ApplicationController
       redirect_to user_path, notice: "プロフィールを編集しました！"
     else
       render :edit
+    end
+  end
+
+  def ensure_current_user
+    if @current_user.id != params[:id]
+      redirect_to user_path, notice: "権限がありません"
     end
   end
 
