@@ -1,29 +1,41 @@
-<%= form_with(model: @picture, local: true ,url: choose_new_or_edit ) do |form| %>
-  <% if @picture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= @picture.errors.count %>件のエラーがあります。</h2>
-      <ul>
-      <% @picture.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<!-- Main Content-->
+<main class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <%= form_with(model: @picture, local: true ,url: choose_new_or_edit ) do |form| %>
+                  <% if @picture.errors.any? %>
+                    <div id="error_explanation">
+                      <h2><%= @picture.errors.count %>件のエラーがあります。</h2>
+                      <ul>
+                      <% @picture.errors.full_messages.each do |msg| %>
+                        <li><%= msg %></li>
+                      <% end %>
+                      </ul>
+                    </div>
+                  <% end %>
+                <div class="my-5">
+                    <form>
+                      <div class="form-floating">
+                        <%= form.file_field :image %>
+                        <%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %>
+                        <%= form.hidden_field :image_cache %>
+                        <label for="inputimage">Image</label>
+                      </div>
+                      
+                      <div class="form-floating">
+                        <%= form.text_field :content, placeholder: "Enter blog content...", class: "form-control", id: "inputContent" %>
+                        <label for="inputContent">Content</label>
+                      </div>
+                      <br />
+                      <%= form.submit nil, class: "btn btn-primary text-uppercase" %>
+                    
+                    <%= link_to "ブログ一覧画面にもどる", pictures_path %>
+                    
+                    <% end %>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %>
-    <%= form.file_field :image %>
-    <%= form.hidden_field :image_cache %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
-  </div>
-  
-  <%= form.submit %>
-
-<%= link_to "ブログ一覧画面にもどる", pictures_path %>
-
-<% end %>
+</main>
