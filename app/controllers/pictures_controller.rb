@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-  before_action :set_picture, only: %i[ show edit update destroy ]
+  before_action :set_picture, only: [:show, :edit, :update, :destroy]
 
   def index
     @pictures = Picture.all
@@ -15,6 +15,7 @@ class PicturesController < ApplicationController
       render :new
     else
       if @picture.save
+        PictureMailer.picture_mail(@picture).deliver
         redirect_to pictures_path, notice: "投稿を作成しました！"
       else
         render :new
