@@ -1,26 +1,39 @@
-<h1>ブログ一覧</h1>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url(<%= asset_path 'home-bg.jpg' %>)">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="site-heading">
+                    <h1>Clean Blog</h1>
+                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
 
-<p><%= notice %></p>
-
-<table>
-  <tr>
-    <th>画像</th>
-    <th>内容</th>
-    <th>ユーザー</th>
-  </tr>
-
-<% @pictures.each do |picture| %>
-  <tr>
-    <td><%= image_tag picture.image.url %></td>
-    <td><%= picture.content %></td>
-    <td><%= picture.user.name %></td>
-    <td><%= link_to '詳細を確認する', picture_path(picture.id) %></td>
-    <% if picture.user.id == current_user.id %>
-    <td><%= link_to 'ブログを編集する', edit_picture_path(picture.id) %></td>
-    <td><%= link_to 'ブログを削除する', picture_path(picture.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %></td>
-    <% end %>
-    </tr>
-<% end %>
-</table>
-
-<%= link_to '新しくブログを投稿する', new_picture_path %>
+          <% @pictures.each do |picture| %>
+          <!-- Post preview-->
+            <div class="post-preview">
+              <%= link_to picture_path(picture.id) do %>
+                <p class="post-image"><%= image_tag picture.image.url %></p>
+                <h3 class="post-content"><%= picture.content %></h3>
+              <% end %>
+              <p class="post-meta">Posted by
+                <%= link_to user_path(current_user.id) do %>
+                  <h3 class="post-content"><%= picture.user.name %></h3>
+                <% end %>
+                <%= time_ago_in_words(picture.created_at) %>
+              </p>
+            </div>
+            <!-- Divider-->
+            <hr class="my-4" />
+          <% end %>
+          
+        </div>
+    </div>
+</div>
