@@ -20,18 +20,13 @@
                         <%= form.file_field :image %>
                         <%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %>
                         <%= form.hidden_field :image_cache %>
-                        <label for="inputimage">Image</label>
                       </div>
-                      
                       <div class="form-floating">
                         <%= form.text_field :content, placeholder: "Enter blog content...", class: "form-control", id: "inputContent" %>
                         <label for="inputContent">Content</label>
                       </div>
                       <br />
                       <%= form.submit nil, class: "btn btn-primary text-uppercase" %>
-                    
-                    <%= link_to "ブログ一覧画面にもどる", pictures_path %>
-                    
                     <% end %>
                     </form>
                 </div>

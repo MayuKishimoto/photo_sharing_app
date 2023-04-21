@@ -1,11 +1,11 @@
-<h3>以下の内容で、送信する。</h3>
+<h3>Confirmation</h3>
 
 <%= form_with(model: @picture, url: pictures_path, local: true) do |form| %>
   <%= form.hidden_field :image_cache %>
   <%= form.hidden_field :content %>
 
-  <p>画像:<%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %></p>
-  <p>内容:<%= @picture.content %></p>
+  <p><%= image_tag(@picture.image.url) if @picture.image && @picture.image.url %></p>
+  <p>Content: <%= @picture.content %></p>
   <%= form.submit  "登録する" %>
 
   <%= form.submit "戻る", name: 'back' %>

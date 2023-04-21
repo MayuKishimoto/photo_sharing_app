@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :ensure_current_user, only: [:edit, :update]
   skip_before_action :login_required, only: [:new, :create]
-  
+  before_action :ensure_current_user, only: [:edit, :update]
+
   def new
     @user = User.new
   end
@@ -34,7 +34,8 @@ class UsersController < ApplicationController
   end
 
   def ensure_current_user
-    if @current_user.id != params[:id]
+    @user = User.find(params[:id])
+    if @current_user.id != @user.id
       redirect_to user_path, notice: "権限がありません"
     end
   end
